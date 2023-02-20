@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="cf110b81-c163-48ba-ab8e-bc8456a2310e" >
+		<http:listener-connection host="0.0.0.0" port="8882" />
+	</http:listener-config>
+	<flow name="deleteproject-apiFlow" doc:id="2f08fd50-db83-4021-bb1c-5cc816537eab" >
+		<http:listener doc:name="Listener" doc:id="49572b79-8956-4d36-b065-abd628990ec7" config-ref="HTTP_Listener_config" path="/List"/>
+		<logger level="INFO" doc:name="Logger" doc:id="93ff2e3d-2667-4e91-8333-68da386e5122" message="DeletedSuccessfully"/>
+		<file:list doc:name="List" doc:id="3c00dedf-cf38-4d62-9736-bb4e8ed1547f" directoryPath="D:\ReadandWrite"/>
+		<ee:transform doc:name="Transform Message" doc:id="6050f359-16d5-46d0-8e60-623cd1659c5d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="a7485325-81a5-4695-9f95-3c0cb05581da" name="SalesforceFlow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="84e93da3-7a85-4f87-9ff9-f049bf1b3ba3" message="logger"/>
+	</flow>
+</mule>

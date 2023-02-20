@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="3397e89e-f472-4ff5-ac14-23385906ce37" >
+		<salesforce:basic-connection username="vishnupriyankamakam" password="bchaica" securityToken="cnsjzao;jvc;laz c azlkpw'" url="https;//login.salesforce.com/services/Soap/u/53.0" />
+	</salesforce:sfdc-config>
+	<flow name="SalesforceFlow" doc:id="736ad0b1-f010-4220-9b2d-9f984e4fb474" >
+		<logger level="INFO" doc:name="Logger" doc:id="c68d2158-46b7-41e7-bd0e-a5d8723b2fe1" message="message"/>
+		<salesforce:query-all doc:name="Query all" doc:id="bf0cd8f9-7ded-4e4e-99ec-740dcf280d94" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query ><![CDATA[select ID from Account]]></salesforce:salesforce-query>
+		</salesforce:query-all>
+		<logger level="INFO" doc:name="Logger" doc:id="0911ee6c-6a8c-4fb4-9de9-0a5ca96dab65" message="message"/>
+	</flow>
+</mule>
